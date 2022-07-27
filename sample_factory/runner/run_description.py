@@ -173,8 +173,9 @@ class RunDescription:
                 self.experiment_arg_name, self.customize_experiment_name, self.param_prefix
             )
             for experiment_cmd, experiment_name in experiment_cmds:
-                experiment_dir = join(train_dir, root_dir)
-                if makedirs:
-                    os.makedirs(experiment_dir, exist_ok=True)
-                experiment_cmd += f" {self.experiment_dir_arg_name}={experiment_dir}"
+                if self.experiment_dir_arg_name is not None:
+                    experiment_dir = join(train_dir, root_dir)
+                    if makedirs:
+                        os.makedirs(experiment_dir, exist_ok=True)
+                    experiment_cmd += f" {self.experiment_dir_arg_name}={experiment_dir}"
                 yield experiment_cmd, experiment_name, root_dir, experiment.env_vars
